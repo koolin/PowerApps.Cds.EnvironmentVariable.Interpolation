@@ -40,7 +40,7 @@ The plugin step is registered with an unsecure configuration to define the input
 
 **Input (required):** the attribute with the string interpolation format string
 
-**Output (optional):** the attribute to output the  output interpolation.  If not set then the input attribute will also be the output attribute.
+**Output (optional):** the attribute to output the interpolation value.  If not set then the input attribute will also be the output attribute.
 
 **Prefix (optional):** the leading text inside the format string.  For example `{env:demo_name}` the prefix value would be `env`.  If not set then no prefix is defined and standard interpolation format string is used `{demo_name}`.
 
@@ -53,7 +53,7 @@ Either:
 
 * Compile and register plugin assembly using SDK or other tools.
 
-Register new step under assembly plugin Cds.EnvironmentVariable.Interpolation.EntityRetrieve for desired entity using the following settings:
+Register new step under assembly plugin Cds.EnvironmentVariable.Interpolation.Plugins.EntityRetrieve for desired entity using the following settings:
 
 * **Message:** Retrieve
 * **Primary Entity:** `<select your desired entity>`
@@ -64,4 +64,4 @@ Set the Unsecure configuration with XML definition.  Must at least include input
 
 Set your string interpolation format string in the entity records input field.
 
-**Note:** *If no output is set then input attribute will be set and on redisplay (after a save or close and open) will no longer be visible but is still the interpolation format string.  The interpolation format string can be overwritten if the record modification in the UI of any fields occurs.*
+**Note:** *If no output is set then input attribute will be set and on redisplay (after a save or close and open) will no longer be visible but is still the interpolation format string that was input in the database.  The interpolation format string can be overwritten if the record modification in the UI of any fields occurs.*
