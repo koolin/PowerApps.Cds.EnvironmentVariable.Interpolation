@@ -100,8 +100,16 @@ namespace Cds.EnvironmentVariable.Interpolation.Plugins
 
             input = input.Substring(1, input.Length - 1);
 
-            var output = (string)entity.Attributes[outputAttribute];
-            tracingService.Trace($"Retrieve output attribute value (pre transform): {output}");
+            if (entity.Attributes.Contains(outputAttribute))
+            {
+                var output = (string)entity.Attributes[outputAttribute];
+                tracingService.Trace($"Retrieve output attribute value (pre transform): {output}");
+            }
+            else
+            {
+                tracingService.Trace($"Retrieve output attribute not included in business entity, might be null, continuing...");
+            }
+
 
             var prefixString = string.IsNullOrEmpty(prefix) ? string.Empty : $"{prefix}:";
             var regexString = @"(\{" + prefixString + @"\w+})";
