@@ -65,3 +65,9 @@ Set the Unsecure configuration with XML definition.  Must at least include input
 Set your string interpolation format string in the entity records input field.
 
 **Note:** *If no output is set then input attribute will be set and on redisplay (after a save or close and open) will no longer be visible but is still the interpolation format string that was input in the database.  The interpolation format string can be overwritten if the record modification in the UI of any fields occurs.*
+
+### Setup your string interpolation format string
+
+When inputting your format string in the input attribute you need to start with $.  String interpolation uses the dollar symbol as a special character to indentify a string as an interpolated string.
+
+Example interpolated string for environment variables: "$hello {env:demo_test}"
