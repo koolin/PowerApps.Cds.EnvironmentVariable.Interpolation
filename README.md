@@ -1,10 +1,10 @@
-# PowerApps Environment Variables String Interpolation
+# Power Apps Environment Variables String Interpolation
 
-Implements a C# string interpolation for PowerApps Environment Variables to allow environment variables to be dynamically used in entity record data.
+Implements a C# string interpolation for Power Apps Environment Variables to allow environment variables to be dynamically used in entity record data.
 
 ## Overview of Technologies
 
-### PowerApps Environment Variables
+### Power Apps Environment Variables
 
 "Environment variables as configurable input parameters allow management of data separately compared to hard-coding values within your customization or using additional tools."
 
