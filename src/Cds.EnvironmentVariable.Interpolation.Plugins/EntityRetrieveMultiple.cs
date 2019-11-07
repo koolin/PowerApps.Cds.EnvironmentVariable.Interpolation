@@ -7,11 +7,11 @@ using System.Xml;
 
 namespace Cds.EnvironmentVariable.Interpolation.Plugins
 {
-    public class EntityRetrieve : IPlugin
+    public class EntityRetrieveMultiple : IPlugin
     {
 
         private XmlDocument _pluginConfiguration;
-        public EntityRetrieve(string unsecureConfig, string secureConfig)
+        public EntityRetrieveMultiple(string unsecureConfig, string secureConfig)
         {
             if (string.IsNullOrEmpty(unsecureConfig))
             {
@@ -46,7 +46,7 @@ namespace Cds.EnvironmentVariable.Interpolation.Plugins
             IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
 
             // The Output collection contains all the data passed in the message request.  
-            if (!context.OutputParameters.Contains("BusinessEntity") && !(context.OutputParameters["BusinessEntity"] is Entity))
+            if (!context.OutputParameters.Contains("BusinessEntityCollection") && !(context.OutputParameters["BusinessEntityCollection"] is EntityCollection))
             {
                 return;
             }
@@ -56,6 +56,8 @@ namespace Cds.EnvironmentVariable.Interpolation.Plugins
             var inputAttribute = GetConfigDataString(_pluginConfiguration, "input");
             var outputAttribute = GetConfigDataString(_pluginConfiguration, "output");
             var prefix = GetConfigDataString(_pluginConfiguration, "prefix");
+
+
 
             if (string.IsNullOrEmpty(inputAttribute))
             {
@@ -81,14 +83,21 @@ namespace Cds.EnvironmentVariable.Interpolation.Plugins
 
             // Obtain the target entity from the output parameters.  
             // Business Entity provides for modification in post-operation
-            Entity entity = (Entity)context.OutputParameters["BusinessEntity"];
+            EntityCollection entityCollection = (EntityCollection)context.OutputParameters["BusinessEntityCollection"];
+
+            tracingService.Trace($"# of Records: {entityCollection.Entities.Count}");
 
             IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);            
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
             var interpolation = new EntityInterpolation(tracingService, service);
 
-            entity = interpolation.Interpolate(entity, inputAttribute, outputAttribute, prefix);
+            for (int i = 0; i < entityCollection.Entities.Count - 1; i++)
+            {
+                entityCollection.Entities[i] = interpolation.Interpolate(entityCollection.Entities[i], inputAttribute, outputAttribute, prefix);
+            }
+
+            
         }
     }
 }

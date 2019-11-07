@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityInterpolation.cs" />
+    <Compile Include="EntityRetrieveMultiple.cs" />
     <Compile Include="EntityRetrieve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
